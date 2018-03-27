@@ -1,15 +1,15 @@
-class StackCommand inherits IO {
+class StackComm inherits IO {
     init(s : String, l : List) : List {       
-        if s = "e" then { l; } else
-        if s = "d" then { new DisplayCommand.print_list(l); l; }
+        if s = "e" then new ExecuteComm.ex(l) else
+        if s = "d" then { new DisplayComm.print_list(l); l; }
         else l.cons(s)
         fi fi
     };
 };
 
-class DisplayCommand inherits StackCommand {
+class DisplayComm inherits StackComm {
     print_list(l : List) : Object {
-      if l.isNil() then out_string("\n")
+      if l.isNil() then out_string("")
       else {
 			out_string(l.head());
 			out_string("\n");
@@ -19,20 +19,35 @@ class DisplayCommand inherits StackCommand {
    };
 };
 
-class ExecuteCommand inherits StackCommand {
+class ExecuteComm inherits StackComm {
+    ex(l : List) : List {
+        if l.isNil() then l else
+        if l.head() = "+" then new SumComm.sum(l.tail()) else
+        if l.head() = "s" then new SwitchComm.sw(l.tail()) else
+        l
+        fi fi fi
+    };
+};
+
+class PushComm inherits StackComm {
 
 };
 
-class PushCommand inherits StackCommand {
+class SumComm inherits StackComm {
+    first : Int;
+    second : Int;
 
+    sum(l : List) : List { {
+        first <- new A2I.c2i(l.head());
+        l;
+    }
+    };
 };
 
-class SumCommand inherits StackCommand {
-
-};
-
-class SwitchCommand inherits StackCommand {
-
+class SwitchComm inherits StackComm {
+    sw(l: List) : List {
+        l
+    };
 };
 
 class Main inherits IO {
@@ -45,7 +60,7 @@ class Main inherits IO {
     out_string(">");
     comm <- in_string();
     while ( not comm = "x" ) loop {
-        l <- (new StackCommand).init(comm, l);
+        l <- (new StackComm).init(comm, l);
         out_string(">");
         comm <- in_string();
         }
