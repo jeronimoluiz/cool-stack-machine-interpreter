@@ -39,7 +39,8 @@ class SumComm inherits StackComm {
 
     sum(l : List) : List { {
         first <- new A2I.c2i(l.head());
-        l;
+        second <- 2;
+        new Cons.init(new A2I.i2c(first + second), l.tail());
     }
     };
 };
