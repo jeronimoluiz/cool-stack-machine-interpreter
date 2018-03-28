@@ -66,25 +66,27 @@ class ExecuteComm inherits StackComm {
     };
 };
 
-class PushComm inherits StackComm {
-
-};
-
 class SumComm inherits StackComm {
     first : Int;
     second : Int;
 
     sum(l : List) : List { {
         first <- new A2I.c2i(l.head());
-        second <- 2;
-        new Cons.init(new A2I.i2c(first + second), l.tail());
+        second <- new A2I.c2i(l.tail().head());
+        new Cons.init(new A2I.i2c(first + second), l.tail().tail());
     }
     };
 };
 
 class SwitchComm inherits StackComm {
-    sw(l: List) : List {
-        l
+    first: String;
+    second: String;
+
+    sw(l: List) : List { {
+        first <- l.head();
+        second <- l.tail().head();
+        new Cons.init(second, new Cons.init(first, l.tail().tail()));
+    }
     };
 };
 
