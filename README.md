@@ -24,4 +24,4 @@ This program was the first assignment for my Compilers' course at [UFMG](https:/
 This program has some assumptions:
 
 * Only valid commands are entered by the user
-* The numbers goes from 0 to 9 only
+* The numbers are all positive
